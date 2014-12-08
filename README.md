@@ -4,7 +4,7 @@ SQRL for Windows 8.1
 What is SQRL?
 -------------
 SQRL (pronounced "squirrel") stands for (S)ecure (Q)uick (R)eliable (L)ogin. It is a new
-login technology meant to eliminate manyu of the common issues we currently experience
+login technology meant to eliminate many of the common issues we currently experience
 with traditional username and password style logins. It is extremely simple to use and
 completely secure.
 
@@ -28,5 +28,5 @@ computer, browser, or website!
 
 References
 ----------
-[SQRL Reference on GRC](https://www.grc.com/sqrl/sqrl.htm)
-[SQRL for Windows 8.1 on Github](https://github.com/hsteinhilber/SQRL)
+* [SQRL Reference on GRC](https://www.grc.com/sqrl/sqrl.htm)
+* [SQRL for Windows 8.1 on Github](https://github.com/hsteinhilber/SQRL)
