@@ -52,7 +52,7 @@ namespace SQRL
             e.Handled = true;
 
             // TODO: This should display a nice error message and all text should be localized.
-            var msgText = "An unexpected error has occured:\n" + e.Exception.ToString();
+            var msgText = "An unexpected error has occured:\n" + e.Message;
             var msg = new Windows.UI.Popups.MessageDialog(msgText, "SQRL");
             var emailCommand = new Windows.UI.Popups.UICommand("Email Issue");
             var ignoreCommand = new Windows.UI.Popups.UICommand("Ignore");
@@ -66,6 +66,27 @@ namespace SQRL
             var result = await msg.ShowAsync();
             if (result == ignoreCommand)
                 App.Current.Exit();
+            if (result == emailCommand) {
+#if WINDOWS_PHONE_APP
+                var em = new Windows.ApplicationModel.Email.EmailMessage();
+
+                // TODO: This will need to go to a specific email for feedback, *not* my personal email :)
+                em.To.Add(new Windows.ApplicationModel.Email.EmailRecipient("harry.steinhilber@live.com"));
+                em.Subject = "Unexpected error in Windows SQRL client";
+                // TODO: The body should be laid out in a template, not here
+                em.Body = "An unexpected error occured:\n\n" + 
+                    e.Exception.ToString() + "\n\n" +
+                    "Additional Client Information\n" +
+                    "-----------------------------\n" + 
+                    "TODO: Add more information about the client";
+                // TODO: Attach a log file instead of just the current exception
+                // em.Attachments.Add(new EmailAttachment(...);
+
+                await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(em);
+#else
+                // TODO: implement email for Windows client (and extract to its own class)
+#endif
+            }
         }
 
         /// <summary>
