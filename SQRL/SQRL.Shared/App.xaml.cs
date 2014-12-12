@@ -49,10 +49,23 @@ namespace SQRL
         /// <param name="e">Details about the exception that was not handled</param>
         private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            e.Handled = true;
+
+            // TODO: This should display a nice error message and all text should be localized.
             var msgText = "An unexpected error has occured:\n" + e.Exception.ToString();
             var msg = new Windows.UI.Popups.MessageDialog(msgText, "SQRL");
-            await msg.ShowAsync();
-            e.Handled = true;
+            var emailCommand = new Windows.UI.Popups.UICommand("Email Issue");
+            var ignoreCommand = new Windows.UI.Popups.UICommand("Ignore");
+
+            msg.Commands.Add(emailCommand);
+            msg.Commands.Add(ignoreCommand);
+            msg.DefaultCommandIndex = 0;
+            msg.CancelCommandIndex = 1;
+
+            // TODO: This should configure an email to send if the user chooses to report the issue
+            var result = await msg.ShowAsync();
+            if (result == ignoreCommand)
+                App.Current.Exit();
         }
 
         /// <summary>
