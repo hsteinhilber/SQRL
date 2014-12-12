@@ -37,6 +37,22 @@ namespace SQRL
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            this.UnhandledException += OnUnhandledException;
+        }
+
+        /// <summary>
+        /// Invoked when an exception is thrown and not caught anywhere within the application.
+        /// This handler will log the exception and redirect to a page to send the log file for
+        /// review to correct the bug that caused the unhandled exception.
+        /// </summary>
+        /// <param name="sender">The object that raised this event</param>
+        /// <param name="e">Details about the exception that was not handled</param>
+        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var msgText = "An unexpected error has occured:\n" + e.Exception.ToString();
+            var msg = new Windows.UI.Popups.MessageDialog(msgText, "SQRL");
+            await msg.ShowAsync();
+            e.Handled = true;
         }
 
         /// <summary>

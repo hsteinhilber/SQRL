@@ -9,6 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Button Content="Test Error Handler" HorizontalAlignment="Left" 
+                Margin="120,70,0,0" VerticalAlignment="Top"
+                Click="Button_Click"/>
 
     </Grid>
 </Page>

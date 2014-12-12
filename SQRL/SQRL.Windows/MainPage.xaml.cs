@@ -26,5 +26,10 @@ namespace SQRL
         {
             this.InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException("The exception handling page is not yet fully implemented. This is just a test.");
+        }
     }
 }
