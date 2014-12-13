@@ -67,7 +67,6 @@ namespace SQRL
             if (result == ignoreCommand)
                 App.Current.Exit();
             if (result == emailCommand) {
-#if WINDOWS_PHONE_APP
                 var em = new Windows.ApplicationModel.Email.EmailMessage();
 
                 // TODO: This will need to go to a specific email for feedback, *not* my personal email :)
@@ -83,9 +82,6 @@ namespace SQRL
                 // em.Attachments.Add(new EmailAttachment(...);
 
                 await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(em);
-#else
-                // TODO: implement email for Windows client (and extract to its own class)
-#endif
             }
         }
 
