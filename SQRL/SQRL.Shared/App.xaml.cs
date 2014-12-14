@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Popups;
+using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Email;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -47,41 +42,40 @@ namespace SQRL
         /// </summary>
         /// <param name="sender">The object that raised this event</param>
         /// <param name="e">Details about the exception that was not handled</param>
-        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
+        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
             e.Handled = true;
 
             // TODO: This should display a nice error message and all text should be localized.
-            var msgText = "An unexpected error has occured:\n" + e.Message;
-            var msg = new Windows.UI.Popups.MessageDialog(msgText, "SQRL");
-            var emailCommand = new Windows.UI.Popups.UICommand("Email Issue");
-            var ignoreCommand = new Windows.UI.Popups.UICommand("Ignore");
+            var loader = new ResourceLoader();
+            var msgText = string.Format(loader.GetString("UnhandledExceptionMessage"), e.Message);
+            var msg = new MessageDialog(msgText, "SQRL");
 
-            msg.Commands.Add(emailCommand);
-            msg.Commands.Add(ignoreCommand);
+            var reportCmd = new UICommand(loader.GetString("UnhandledExceptionReport"));
+            msg.Commands.Add(reportCmd);
             msg.DefaultCommandIndex = 0;
+
+            var quitCmd = new UICommand(loader.GetString("UnhandledExceptionQuit"));
+            msg.Commands.Add(quitCmd);
             msg.CancelCommandIndex = 1;
 
             // TODO: This should configure an email to send if the user chooses to report the issue
             var result = await msg.ShowAsync();
-            if (result == ignoreCommand)
+            if (result == quitCmd)
                 App.Current.Exit();
-            if (result == emailCommand) {
-                var em = new Windows.ApplicationModel.Email.EmailMessage();
+            if (result == reportCmd) {
+                var em = new EmailMessage();
 
                 // TODO: This will need to go to a specific email for feedback, *not* my personal email :)
-                em.To.Add(new Windows.ApplicationModel.Email.EmailRecipient("harry.steinhilber@live.com"));
+                em.To.Add(new EmailRecipient("harry.steinhilber@live.com"));
                 em.Subject = "Unexpected error in Windows SQRL client";
                 // TODO: The body should be laid out in a template, not here
-                em.Body = "An unexpected error occured:\n\n" + 
+                em.Body = "An unexpected error occured:\n\n" +
                     e.Exception.ToString() + "\n\n" +
                     "Additional Client Information\n" +
-                    "-----------------------------\n" + 
+                    "-----------------------------\n" +
                     "TODO: Add more information about the client";
-                // TODO: Attach a log file instead of just the current exception
-                // em.Attachments.Add(new EmailAttachment(...);
 
-                await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(em);
+                await EmailManager.ShowComposeNewEmailAsync(em);
             }
         }
 
