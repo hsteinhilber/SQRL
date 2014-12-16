@@ -25,6 +25,18 @@ namespace SQRL
         public MainPage()
         {
             this.InitializeComponent();
+            this.AssemblyInfo.Text = String.Format("Product: {0}\nCompany: {1}\nCopyright: {2}\nTrademark: {3}\n" + 
+                                                   "Title: {4}\nDescription: {5}\nVersion: {6}\nFile Version: {7}\n" +
+                                                   "Info Version: {8}\n", 
+                                         AssemblyInformation.Product, 
+                                         AssemblyInformation.Company, 
+                                         AssemblyInformation.Copyright, 
+                                         AssemblyInformation.Trademark, 
+                                         AssemblyInformation.Title, 
+                                         AssemblyInformation.Description, 
+                                         AssemblyInformation.Version.ToString(), 
+                                         AssemblyInformation.FileVersion, 
+                                         AssemblyInformation.InformationalVersion);        
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

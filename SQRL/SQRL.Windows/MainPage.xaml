@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="Test Error Handler" HorizontalAlignment="Left" Margin="651,247,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-
+        <Button Content="Test Error Handler" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click"/>
+        <TextBlock Name="AssemblyInfo" HorizontalAlignment="Center" VerticalAlignment="Top" Height="333" FontSize="22" Margin="343,0" />
     </Grid>
 </Page>
