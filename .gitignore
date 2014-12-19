@@ -9,7 +9,7 @@ Thumbs.db
 *.sln.docstates
 
 # Generated meta data source files
-[Aa]ssembly[Ii]nfo.cs
+**/[Pp]roperties/[Aa]ssembly[Ii]nfo.cs
 
 # Build results
 [Dd]ebug/
