@@ -47,7 +47,7 @@ namespace SQRL
 
             var loader = new ResourceLoader();
             var msgText = string.Format(loader.GetString("UnhandledExceptionMessage"), e.Message);
-            var msg = new MessageDialog(msgText, AssemblyInformation.Product);
+            var msg = new MessageDialog(msgText, AssemblyInfo.Product);
 
             var reportCmd = new UICommand(loader.GetString("UnhandledExceptionReport"));
             msg.Commands.Add(reportCmd);
@@ -72,15 +72,14 @@ namespace SQRL
                     e.Exception.ToString() + "\n\n" +
                     "Additional Client Information\n" +
                     "-----------------------------\n" +
-                    "Product: " + AssemblyInformation.Product + "\n" +
-                    "Company: " + AssemblyInformation.Company + "\n" +
-                    "Copyright: " + AssemblyInformation.Copyright + "\n" +
-                    "Trademark: " + AssemblyInformation.Trademark + "\n" +
-                    "Title: " + AssemblyInformation.Title + "\n" +
-                    "Description: " + AssemblyInformation.Description + "\n" +
-                    "Version: " + AssemblyInformation.Version.ToString() + "\n" +
-                    "File Version: " + AssemblyInformation.FileVersion + "\n" +
-                    "Info Version: " + AssemblyInformation.InformationalVersion + "\n" +
+                    "Product: " + AssemblyInfo.Product + "\n" +
+                    "Company: " + AssemblyInfo.Company + "\n" +
+                    "Copyright: " + AssemblyInfo.Copyright + "\n" +
+                    "Trademark: " + AssemblyInfo.Trademark + "\n" +
+                    "Title: " + AssemblyInfo.Title + "\n" +
+                    "Version: " + AssemblyInfo.Version.ToString() + "\n" +
+                    "File Version: " + AssemblyInfo.FileVersion + "\n" +
+                    "Info Version: " + AssemblyInfo.InformationalVersion + "\n" +
                     "TODO: Add more information about the client";
 
                 await EmailManager.ShowComposeNewEmailAsync(em);

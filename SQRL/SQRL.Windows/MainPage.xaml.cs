@@ -26,17 +26,16 @@ namespace SQRL
         {
             this.InitializeComponent();
             this.AssemblyInfo.Text = String.Format("Product: {0}\nCompany: {1}\nCopyright: {2}\nTrademark: {3}\n" + 
-                                                   "Title: {4}\nDescription: {5}\nVersion: {6}\nFile Version: {7}\n" +
-                                                   "Info Version: {8}\n", 
-                                         AssemblyInformation.Product, 
-                                         AssemblyInformation.Company, 
-                                         AssemblyInformation.Copyright, 
-                                         AssemblyInformation.Trademark, 
-                                         AssemblyInformation.Title, 
-                                         AssemblyInformation.Description, 
-                                         AssemblyInformation.Version.ToString(), 
-                                         AssemblyInformation.FileVersion, 
-                                         AssemblyInformation.InformationalVersion);        
+                                                   "Title: {4}\nVersion: {5}\nFile Version: {6}\n" +
+                                                   "Info Version: {7}\n", 
+                                         SQRL.AssemblyInfo.Product,
+                                         SQRL.AssemblyInfo.Company,
+                                         SQRL.AssemblyInfo.Copyright,
+                                         SQRL.AssemblyInfo.Trademark,
+                                         SQRL.AssemblyInfo.Title,
+                                         SQRL.AssemblyInfo.Version.ToString(),
+                                         SQRL.AssemblyInfo.FileVersion,
+                                         SQRL.AssemblyInfo.InformationalVersion);        
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
