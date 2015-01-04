@@ -89,6 +89,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </None>
+    <None Include="StringResources.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StringResources.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainPage.xaml.cs">
@@ -98,6 +102,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StringResources.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

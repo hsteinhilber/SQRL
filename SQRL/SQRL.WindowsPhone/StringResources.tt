@@ -1,0 +1,3 @@
+﻿<# // This is an ugly hack to handle the fact that T4 Templates 
+   // in a shared code project don't get processed for some reason. #>
+<#@ include file="..\SQRL.Shared\StringResources.tt" #>

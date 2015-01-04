@@ -123,6 +123,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StringResources.cs">
+      <DependentUpon>StringResources.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -133,6 +138,10 @@
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </None>
     <None Include="SQRL.Windows_TemporaryKey.pfx" />
+    <None Include="StringResources.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StringResources.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.scale-100.png" />

@@ -46,14 +46,14 @@ namespace SQRL
             e.Handled = true;
 
             var loader = new ResourceLoader();
-            var msgText = string.Format(loader.GetString("UnhandledExceptionMessage"), e.Message);
+            var msgText = string.Format(StringResources.UnhandledExceptionMessage, e.Message);
             var msg = new MessageDialog(msgText, AssemblyInfo.Product);
 
-            var reportCmd = new UICommand(loader.GetString("UnhandledExceptionReport"));
+            var reportCmd = new UICommand(StringResources.UnhandledExceptionReport);
             msg.Commands.Add(reportCmd);
             msg.DefaultCommandIndex = 0;
 
-            var quitCmd = new UICommand(loader.GetString("UnhandledExceptionQuit"));
+            var quitCmd = new UICommand(StringResources.UnhandledExceptionQuit);
             msg.Commands.Add(quitCmd);
             msg.CancelCommandIndex = 1;
 

@@ -22,4 +22,9 @@
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)StringResources.tt">
+      <LastGenOutput>StringResources.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>
