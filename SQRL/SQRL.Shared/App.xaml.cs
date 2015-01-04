@@ -45,9 +45,9 @@ namespace SQRL
         private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
             e.Handled = true;
 
-            var loader = new ResourceLoader();
-            var msgText = string.Format(StringResources.UnhandledExceptionMessage, e.Message);
-            var msg = new MessageDialog(msgText, AssemblyInfo.Product);
+            var msg = new MessageDialog(string.Format(StringResources.UnhandledExceptionMessage, 
+                                                      e.Message), 
+                                        AssemblyInfo.Product);
 
             var reportCmd = new UICommand(StringResources.UnhandledExceptionReport);
             msg.Commands.Add(reportCmd);
