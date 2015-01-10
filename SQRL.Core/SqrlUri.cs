@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace SQRL.Test {
+namespace SQRL {
     public class SqrlUri : Uri {
         readonly Dictionary<string, int> SUPPORTED_SCHEMES = new Dictionary<string, int>() { { "sqrl", 443 }, { "qrl", 80 } };
 
