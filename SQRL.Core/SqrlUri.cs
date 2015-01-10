@@ -6,7 +6,7 @@ namespace SQRL {
     public class SqrlUri : Uri {
         readonly Dictionary<string, int> SUPPORTED_SCHEMES = new Dictionary<string, int>() { { "sqrl", 443 }, { "qrl", 80 } };
 
-        public SqrlUri(string uri) : base(uri.Replace("|","/")) {
+        public SqrlUri(string uri) : base(uri) {
             if (!SUPPORTED_SCHEMES.Keys.Contains(base.Scheme))
                 throw new NotSupportedException(String.Format("Scheme '{0}' is not supported", base.Scheme));
           

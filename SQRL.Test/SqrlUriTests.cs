@@ -24,12 +24,6 @@ namespace SQRL.Test {
             Assert.That(uri.Port, Is.EqualTo(expectedPort));
         }
 
-        [Test]
-        public void Value_should_not_include_pipe_character_when_used() {
-            SqrlUri uri = new SqrlUri("sqrl://example.com/hsteinhilber|sqrl/login.php?NONCE");
-            Assert.That(uri.ToString(), Is.EqualTo("sqrl://example.com/hsteinhilber/sqrl/login.php?NONCE"));
-        }
-
         [TestCase("http://www.example.com")]
         [TestCase("https://www.example.com")]
         [TestCase("mailto:test@example.com")]
