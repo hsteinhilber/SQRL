@@ -67,6 +67,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AesGcm.cs" />
+    <Compile Include="AesGcmTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqrlUriTests.cs" />
   </ItemGroup>
@@ -77,6 +79,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestData\gcmDecrypt128.rsp" />
+    <None Include="TestData\gcmDecrypt192.rsp" />
+    <None Include="TestData\gcmDecrypt256.rsp" />
+    <None Include="TestData\gcmEncryptExtIV128.rsp" />
+    <None Include="TestData\gcmEncryptExtIV192.rsp" />
+    <None Include="TestData\gcmEncryptExtIV256.rsp" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

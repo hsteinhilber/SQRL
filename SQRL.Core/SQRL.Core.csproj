@@ -47,6 +47,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AesGcm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
       <AutoGen>True</AutoGen>
