@@ -9,12 +9,10 @@ namespace SQRL {
         public SqrlUri(string uri) : base(uri) {
             if (!SUPPORTED_SCHEMES.Keys.Contains(base.Scheme))
                 throw new NotSupportedException(String.Format("Scheme '{0}' is not supported", base.Scheme));
-          
-            if (uri.Contains("|")) {
-                int hostIndex = uri.IndexOf(base.Host);
-                int startIndex = uri.IndexOf("/", hostIndex);
-                int length = uri.IndexOf("|") - startIndex;
-                _siteKeyString = base.Host + uri.Substring(startIndex, length);
+
+            int length = base.LocalPath.IndexOf("|");
+            if (length > 0) {
+                _siteKeyString = base.Host + base.LocalPath.Substring(0, length);
             }
         }
 
