@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <IntermediateOutputPath>..\Build\obj\SQRL.Core\Debug\</IntermediateOutputPath>
-    <OutputPath>..\Build\bin\Debug\</OutputPath>
+    <IntermediateOutputPath>..\..\Build\obj\SQRL.Core\Debug\</IntermediateOutputPath>
+    <OutputPath>..\..\Build\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,8 +33,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <IntermediateOutputPath>..\Build\obj\SQRL.Core\Release\</IntermediateOutputPath>
-    <OutputPath>..\Build\bin\Release\</OutputPath>
+    <IntermediateOutputPath>..\..\Build\obj\SQRL.Core\Release\</IntermediateOutputPath>
+    <OutputPath>..\..\Build\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,7 +47,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AesGcm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
       <AutoGen>True</AutoGen>
