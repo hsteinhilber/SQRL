@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQRL", "SQRL", "{35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SQRL.Shared", "SQRL\SQRL.Shared\SQRL.Shared.shproj", "{CDD136D8-F3D7-46AB-A212-FC13EA199AE4}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SQRL.Shared", "Src\SQRL.Shared\SQRL.Shared.shproj", "{CDD136D8-F3D7-46AB-A212-FC13EA199AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Windows", "SQRL\SQRL.Windows\SQRL.Windows.csproj", "{03DE1B31-C1EB-4AE2-A4DC-72D48B9A4334}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Windows", "Src\SQRL.Windows\SQRL.Windows.csproj", "{03DE1B31-C1EB-4AE2-A4DC-72D48B9A4334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.WindowsPhone", "SQRL\SQRL.WindowsPhone\SQRL.WindowsPhone.csproj", "{73E7E04F-8887-41BF-9CED-FB51F8AE3C1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.WindowsPhone", "Src\SQRL.WindowsPhone\SQRL.WindowsPhone.csproj", "{73E7E04F-8887-41BF-9CED-FB51F8AE3C1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11B08CBD-0B14-4332-9F8D-E6091CAC8888}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,15 +20,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		VERSION = VERSION
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Test", "SQRL.Test\SQRL.Test.csproj", "{00638684-58CA-46D0-A8F6-FDE361915791}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Core.Test", "Tests\SQRL.Core.Test\SQRL.Core.Test.csproj", "{00638684-58CA-46D0-A8F6-FDE361915791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Core", "SQRL.Core\SQRL.Core.csproj", "{4ADD2892-4068-4814-801C-0EF5807B002D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQRL.Core", "Src\SQRL.Core\SQRL.Core.csproj", "{4ADD2892-4068-4814-801C-0EF5807B002D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{26938B02-E726-43F5-84CE-C0BC700C0BF6}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		SQRL\SQRL.Shared\SQRL.Shared.projitems*{03de1b31-c1eb-4ae2-a4dc-72d48b9a4334}*SharedItemsImports = 4
-		SQRL\SQRL.Shared\SQRL.Shared.projitems*{cdd136d8-f3d7-46ab-a212-fc13ea199ae4}*SharedItemsImports = 13
-		SQRL\SQRL.Shared\SQRL.Shared.projitems*{73e7e04f-8887-41bf-9ced-fb51f8ae3c1d}*SharedItemsImports = 4
+		Src\SQRL.Shared\SQRL.Shared.projitems*{03de1b31-c1eb-4ae2-a4dc-72d48b9a4334}*SharedItemsImports = 4
+		Src\SQRL.Shared\SQRL.Shared.projitems*{cdd136d8-f3d7-46ab-a212-fc13ea199ae4}*SharedItemsImports = 13
+		Src\SQRL.Shared\SQRL.Shared.projitems*{73e7e04f-8887-41bf-9ced-fb51f8ae3c1d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,7 +115,7 @@ Global
 		{CDD136D8-F3D7-46AB-A212-FC13EA199AE4} = {35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}
 		{03DE1B31-C1EB-4AE2-A4DC-72D48B9A4334} = {35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}
 		{73E7E04F-8887-41BF-9CED-FB51F8AE3C1D} = {35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}
-		{00638684-58CA-46D0-A8F6-FDE361915791} = {35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}
+		{00638684-58CA-46D0-A8F6-FDE361915791} = {26938B02-E726-43F5-84CE-C0BC700C0BF6}
 		{4ADD2892-4068-4814-801C-0EF5807B002D} = {35E488C6-ECAD-4EA8-8C1C-8DDBC2494027}
 	EndGlobalSection
 EndGlobal

@@ -72,18 +72,18 @@
     <Compile Include="SqrlUriTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SQRL.Core\SQRL.Core.csproj">
+    <ProjectReference Include="..\..\Src\SQRL.Core\SQRL.Core.csproj">
       <Project>{4add2892-4068-4814-801c-0ef5807b002d}</Project>
       <Name>SQRL.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestData\gcmDecrypt128.rsp" />
-    <None Include="TestData\gcmDecrypt192.rsp" />
-    <None Include="TestData\gcmDecrypt256.rsp" />
-    <None Include="TestData\gcmEncryptExtIV128.rsp" />
-    <None Include="TestData\gcmEncryptExtIV192.rsp" />
-    <None Include="TestData\gcmEncryptExtIV256.rsp" />
+    <None Include="TestData\gcmDecrypt128.dat" />
+    <None Include="TestData\gcmDecrypt192.dat" />
+    <None Include="TestData\gcmDecrypt256.dat" />
+    <None Include="TestData\gcmEncryptExtIV128.dat" />
+    <None Include="TestData\gcmEncryptExtIV192.dat" />
+    <None Include="TestData\gcmEncryptExtIV256.dat" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
