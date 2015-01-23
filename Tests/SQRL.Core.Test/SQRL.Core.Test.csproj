@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <IntermediateOutputPath>..\..\Build\obj\SQRL.Test\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>..\..\Build\obj\SQRL.Core.Test\Debug\</IntermediateOutputPath>
     <OutputPath>..\..\Build\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
