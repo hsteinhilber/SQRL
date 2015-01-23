@@ -8,4 +8,24 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>SQRL.Shared.Test</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmDecrypt128.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmDecrypt192.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmDecrypt256.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmEncryptExtIV128.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmEncryptExtIV192.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)TestData\gcmEncryptExtIV256.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

@@ -77,12 +77,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestData\gcmDecrypt128.dat" />
-    <None Include="TestData\gcmDecrypt192.dat" />
-    <None Include="TestData\gcmDecrypt256.dat" />
-    <None Include="TestData\gcmEncryptExtIV128.dat" />
-    <None Include="TestData\gcmEncryptExtIV192.dat" />
-    <None Include="TestData\gcmEncryptExtIV256.dat" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
