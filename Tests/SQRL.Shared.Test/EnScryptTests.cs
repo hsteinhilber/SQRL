@@ -13,7 +13,7 @@ namespace SQRL.Test
     public class EnScryptTests {
         [TestMethod]
         public void It_should_throw_if_string_is_null() {
-            var salt = CryptographicBuffer.CreateFromByteArray(new byte[] {});
+            var salt = new byte[] {};
             int iterations;
             Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.EnScrypt(null, salt, 1), 
                 "EnScrypt with iteration specified did not throw an exception.");
@@ -23,7 +23,7 @@ namespace SQRL.Test
 
         [TestMethod]
         public void It_should_not_throw_if_string_is_empty() {
-            var salt = CryptographicBuffer.CreateFromByteArray(new byte[] {});
+            var salt = new byte[] {};
             int iterations;
             SecurityExtensions.EnScrypt("", salt, 1);
             SecurityExtensions.EnScrypt("", salt, TimeSpan.FromSeconds(5), out iterations);
@@ -60,10 +60,11 @@ namespace SQRL.Test
         [DataRow("password", "", 123, "129d96d1e735618517259416a605be7094c2856a53c14ef7d4e4ba8e4ea36aeb")]
         [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 123, "2f30b9d4e5c48056177ff90a6cc9da04b648a7e8451dfa60da56c148187f6a7d")]
         public void It_should_compute_the_correct_hash(string password, string salt, int iterations, string expected) {
-            var saltBuffer = CryptographicBuffer.DecodeFromHexString(salt);
+            var saltBuffer = CryptographicBuffer.DecodeFromHexString(salt).ToArray();
 
             var key = SecurityExtensions.EnScrypt(password, saltBuffer, iterations);
-            Assert.AreEqual(expected, CryptographicBuffer.EncodeToHexString(key), ignoreCase: true);
+            var keyHex = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(key));
+            Assert.AreEqual(expected, keyHex, ignoreCase: true);
         }
     }
 }
