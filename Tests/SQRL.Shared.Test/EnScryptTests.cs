@@ -1,35 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
+using System.Linq;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
+using WssStream = Windows.Storage.Streams.Buffer;
 
 namespace SQRL.Test
 {
-    public static class SecurityExtensions {
-        public static IBuffer EnScrypt(this string password, IBuffer salt, int iterations) {
-            if (password == null) throw new ArgumentNullException("password");
-            if (iterations <= 0) throw new ArgumentOutOfRangeException("iterations", "iterations must be greater than 0");
-
-            var provider = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesGcm);
-            var pwdBuffer = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8) ?? 
-                            CryptographicBuffer.CreateFromByteArray(new byte[] {});
-            salt = salt ?? CryptographicBuffer.DecodeFromHexString("c0d2005faba6fc1eabd97761ee95e2902a222e49871be81ac92fd7c79fea2a1f"); // THIS IS WRONG!!!!
-            return salt; // THIS IS WRONG TOO
-        }
-
-        public static IBuffer EnScrypt(this string password, IBuffer salt, TimeSpan duration, out int iterations) {
-            if (password == null) throw new ArgumentNullException("password");
-            if (duration <= TimeSpan.FromSeconds(0)) throw new ArgumentOutOfRangeException("duration", "duration must be greater than 0");
-
-            iterations = 0;
-            return null;
-        }
-    }
-
     [TestClass]
-    public class EnScryptTests
-    {
+    public class EnScryptTests {
         [TestMethod]
         public void It_should_throw_if_string_is_null() {
             var salt = CryptographicBuffer.CreateFromByteArray(new byte[] {});
@@ -72,14 +53,16 @@ namespace SQRL.Test
                 "did not throw on zero timespan for duratrion");
         }
 
-        [TestMethod]
-        public void It_should_compute_the_correct_hash_given_no_password_and_no_salt() {
-            var password = "";
-            var salt = CryptographicBuffer.CreateFromByteArray(new byte[] { });
-            var iterations = 57;
-            var expected = "c0d2005faba6fc1eabd97761ee95e2902a222e49871be81ac92fd7c79fea2a1f";
+        [DataTestMethod]
+        [DataRow("", "", 1, "a8ea62a6e1bfd20e4275011595307aa302645c1801600ef5cd79bf9d884d911c")]
+        [DataRow("", "", 100, "45a42a01709a0012a37b7b6874cf16623543409d19e7740ed96741d2e99aab67")]
+        [DataRow("", "", 1000, "3f671adf47d2b1744b1bf9b50248cc71f2a58e8d2b43c76edb1d2a2c200907f5")]
+        [DataRow("password", "", 123, "129d96d1e735618517259416a605be7094c2856a53c14ef7d4e4ba8e4ea36aeb")]
+        [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 123, "2f30b9d4e5c48056177ff90a6cc9da04b648a7e8451dfa60da56c148187f6a7d")]
+        public void It_should_compute_the_correct_hash(string password, string salt, int iterations, string expected) {
+            var saltBuffer = CryptographicBuffer.DecodeFromHexString(salt);
 
-            var key = SecurityExtensions.EnScrypt(password, salt, iterations);
+            var key = SecurityExtensions.EnScrypt(password, saltBuffer, iterations);
             Assert.AreEqual(expected, CryptographicBuffer.EncodeToHexString(key), ignoreCase: true);
         }
     }

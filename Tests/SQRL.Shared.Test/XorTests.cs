@@ -1,0 +1,45 @@
+﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using System;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Security.Cryptography;
+using WssBuffer = Windows.Storage.Streams.Buffer;
+
+namespace SQRL.Test
+{
+    [TestClass]
+    public class XorTests {
+        [TestMethod]
+        public void It_should_throw_if_values_are_null() {
+            Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.Xor(null, new WssBuffer(0)));
+            Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.Xor(new WssBuffer(0), null));
+        }
+
+        [TestMethod]
+        public void It_should_throw_if_buffers_differ_in_length() {
+            var left = CryptographicBuffer.CreateFromByteArray(new byte[] { 0x01, 0x02, 0x03, 0x04 });
+            var right = CryptographicBuffer.CreateFromByteArray(new byte[] { 0x01, 0x02, 0x03 });
+            Assert.ThrowsException<ArgumentException>(() => SecurityExtensions.Xor(left, right));
+        }
+
+        [DataTestMethod]
+        [DataRow("0,0,0,0", "0,0,0,0", "0,0,0,0")]
+        [DataRow("255,255,255,255", "255,255,255,255", "0,0,0,0")]
+        [DataRow("85,170,85,170", "170,85,170,85", "255,255,255,255")]
+        [DataRow("85,85,85,85", "255,255,255,255", "170,170,170,170")]
+        public void It_should_xor_each_byte_of_the_arrays_to_produce_a_new_byte(string left, string right, string result) {
+            var leftBuffer = CryptographicBuffer.CreateFromByteArray(StringToByteArray(left));
+            var rightBuffer = CryptographicBuffer.CreateFromByteArray(StringToByteArray(right));
+            var expected = StringToByteArray(result);
+
+            var actual = SecurityExtensions.Xor(leftBuffer, rightBuffer);
+            CollectionAssert.AreEquivalent(expected, actual.ToArray());
+        }
+
+        private byte[] StringToByteArray(string text) {
+            var values = from value in text.Split(',')
+                         select byte.Parse(value);
+            return values.ToArray();
+        }
+    }
+}
