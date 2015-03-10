@@ -6,8 +6,7 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-namespace SQRL
-{
+namespace SQRL.Security {
     public static class SecurityExtensions {
         public static byte[] EnScrypt(this string password, byte[] salt, int iterations) {
             if (password == null) throw new ArgumentNullException("password");

@@ -5,8 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using WssBuffer = Windows.Storage.Streams.Buffer;
 
-namespace SQRL.Test
-{
+namespace SQRL.Security.Test {
     [TestClass]
     public class XorTests {
         [TestMethod]

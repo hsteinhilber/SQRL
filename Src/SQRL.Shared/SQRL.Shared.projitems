@@ -15,7 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)SecurityExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\SecurityExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqrlUri.cs" />
   </ItemGroup>
   <ItemGroup>

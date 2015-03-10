@@ -7,15 +7,14 @@ using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 using WssStream = Windows.Storage.Streams.Buffer;
 
-namespace SQRL.Test
-{
+namespace SQRL.Security.Test {
     [TestClass]
     public class EnScryptTests {
         [TestMethod]
         public void It_should_throw_if_string_is_null() {
-            var salt = new byte[] {};
+            var salt = new byte[] { };
             int iterations;
-            Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.EnScrypt(null, salt, 1), 
+            Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.EnScrypt(null, salt, 1),
                 "EnScrypt with iteration specified did not throw an exception.");
             Assert.ThrowsException<ArgumentNullException>(() => SecurityExtensions.EnScrypt(null, salt, TimeSpan.FromSeconds(5), out iterations),
                 "EnScrypt that takes a duration did not throw an exception.");
@@ -23,7 +22,7 @@ namespace SQRL.Test
 
         [TestMethod]
         public void It_should_not_throw_if_string_is_empty() {
-            var salt = new byte[] {};
+            var salt = new byte[] { };
             int iterations;
             SecurityExtensions.EnScrypt("", salt, 1);
             SecurityExtensions.EnScrypt("", salt, TimeSpan.FromSeconds(5), out iterations);
