@@ -33,7 +33,17 @@ namespace SQRL.Test
             var expected = StringToByteArray(result);
 
             var actual = SecurityExtensions.Xor(leftBuffer, rightBuffer);
-            CollectionAssert.AreEquivalent(expected, actual.ToArray());
+            CollectionAssert.AreEqual(expected, actual.ToArray());
+        }
+
+        [TestMethod]
+        public void It_should_overwrite_the_contents_of_the_first_array() {
+            var left = new byte[] { 0x00, 0x01, 0x02, 0x03 };
+            var right = new byte[] { 0x1, 0x02, 0x03, 0x04 };
+
+            var result = SecurityExtensions.Xor(left, right);
+
+            Assert.AreSame(left, result);
         }
 
         private byte[] StringToByteArray(string text) {

@@ -13,10 +13,12 @@ namespace SQRL
             if (password == null) throw new ArgumentNullException("password");
             if (iterations <= 0) throw new ArgumentOutOfRangeException("iterations", "iterations must be greater than 0");
 
-            var result = new byte[32];
+            salt = salt ?? new byte[] { };
+            var result = Scrypt(password, salt);
 
             for (int i = 0; i < iterations; ++i) {
-
+                salt = Scrypt(password, salt);
+                result.Xor(salt);
             }
 
             return result;
@@ -32,19 +34,18 @@ namespace SQRL
         }
 
         private static byte[] Scrypt(string password, byte[] salt) {
-            return salt;
+            return CryptographicBuffer.GenerateRandom(32).ToArray();
         }
 
-        public static IBuffer Xor(byte[] left, byte[] right) {
+        public static byte[] Xor(this byte[] left, byte[] right) {
             if (left == null) throw new ArgumentNullException("left");
             if (right == null) throw new ArgumentNullException("right");
             if (left.Length != right.Length) throw new ArgumentException("buffers must have the same length");
 
-            var result = new byte[left.Length];
             for (int i = 0; i < left.Length; ++i) {
-                result[i] = (byte)(left[i] ^ right[i]);
+                left[i] ^= right[i];
             }
-            return result.AsBuffer();
+            return left;
         }
     }
 }

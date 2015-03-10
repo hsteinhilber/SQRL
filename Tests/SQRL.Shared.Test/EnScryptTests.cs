@@ -60,7 +60,7 @@ namespace SQRL.Test
         [DataRow("password", "", 123, "129d96d1e735618517259416a605be7094c2856a53c14ef7d4e4ba8e4ea36aeb")]
         [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 123, "2f30b9d4e5c48056177ff90a6cc9da04b648a7e8451dfa60da56c148187f6a7d")]
         public void It_should_compute_the_correct_hash(string password, string salt, int iterations, string expected) {
-            var saltBuffer = CryptographicBuffer.DecodeFromHexString(salt).ToArray();
+            var saltBuffer = salt == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(salt).ToArray();
 
             var key = SecurityExtensions.EnScrypt(password, saltBuffer, iterations);
             var keyHex = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(key));
