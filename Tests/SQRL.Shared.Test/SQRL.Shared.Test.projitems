@@ -9,7 +9,7 @@
     <Import_RootNamespace>SQRL.Shared.Test</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Security\EnScryptTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\PasswordHasherTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\XorTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqrlUriTests.cs" />
   </ItemGroup>

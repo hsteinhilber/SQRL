@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Security.Cryptography;
-using WssBuffer = Windows.Storage.Streams.Buffer;
 
 namespace SQRL.Security.Test {
     [TestClass]
