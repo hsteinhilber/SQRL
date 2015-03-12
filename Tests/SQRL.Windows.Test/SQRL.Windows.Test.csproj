@@ -121,6 +121,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="packages.config" />
     <None Include="SQRL.Windows.Test_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +143,11 @@
       <Project>{03de1b31-c1eb-4ae2-a4dc-72d48b9a4334}</Project>
       <Name>SQRL.Windows</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CryptSharp">
+      <HintPath>..\..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

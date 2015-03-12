@@ -4,6 +4,7 @@ using System.Text;
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
+using CryptSharp.Utility;
 
 namespace SQRL.Security {
     public class PasswordHasher {
@@ -18,11 +19,13 @@ namespace SQRL.Security {
         public byte[] EnScrypt(byte[] salt, int iterations) {
             if (iterations <= 0) throw new ArgumentOutOfRangeException("iterations", "iterations must be greater than 0");
 
-            salt = salt ?? new byte[] { };
-            var result = Scrypt(salt, 1, 512, 256, 32);
+            var key = Password == "" ? new byte[] { } : 
+                      CryptographicBuffer.ConvertStringToBinary(Password, BinaryStringEncoding.Utf8).ToArray();
+            //salt = salt ?? new byte[] { };
 
-            for (int i = 0; i < iterations; ++i) {
-                salt = Scrypt(salt, 1, 512, 256, 32);
+            var result = salt = SCrypt.ComputeDerivedKey(key, salt, 512, 256, 1, null, 32);
+            for (int i = 1; i < iterations; ++i) {
+                salt = SCrypt.ComputeDerivedKey(key, salt, 512, 256, 1, null, 32);
                 result.Xor(salt);
             }
 
@@ -35,10 +38,6 @@ namespace SQRL.Security {
             iterations = 0;
 
             return null;
-        }
-
-        private byte[] Scrypt(byte[] salt, int p, int N, int r, int size) {
-            return CryptographicBuffer.GenerateRandom(32).ToArray();
         }
     }
 }

@@ -53,10 +53,9 @@ namespace SQRL.Security.Test {
 
         [DataTestMethod]
         [DataRow("", "", 1, "a8ea62a6e1bfd20e4275011595307aa302645c1801600ef5cd79bf9d884d911c")]
-        [DataRow("", "", 100, "45a42a01709a0012a37b7b6874cf16623543409d19e7740ed96741d2e99aab67")]
-        [DataRow("", "", 1000, "3f671adf47d2b1744b1bf9b50248cc71f2a58e8d2b43c76edb1d2a2c200907f5")]
-        [DataRow("password", "", 123, "129d96d1e735618517259416a605be7094c2856a53c14ef7d4e4ba8e4ea36aeb")]
-        [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 123, "2f30b9d4e5c48056177ff90a6cc9da04b648a7e8451dfa60da56c148187f6a7d")]
+        [DataRow("", "", 10, "007247087801b8d77c2e47e6da6759ea63e38c81b64742f569ead005e75fe060")]
+        [DataRow("password", "", 10, "08cde5572414a6f6d83a881e52f368ea448930207b309319379304316b44e057")]
+        [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 10, "ba6006e4c23262a8cc7f242e110cc644e7ad8237e2b0a2265fbe6d51148c27b3")]
         public void Enscrypt_should_compute_the_correct_hash(string password, string saltText, int iterations, string expected) {
             var hasher = new PasswordHasher(password);
             var salt = saltText == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(saltText).ToArray();
