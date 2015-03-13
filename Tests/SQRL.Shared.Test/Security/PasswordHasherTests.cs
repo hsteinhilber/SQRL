@@ -18,25 +18,25 @@ namespace SQRL.Security.Test {
             var hasher = new PasswordHasher("");
             int iterations;
 
-            hasher.EnScrypt(salt, 1);
-            hasher.EnScrypt(salt, TimeSpan.FromSeconds(5), out iterations);
+            hasher.Enscrypt(salt, 1);
+            hasher.Enscrypt(salt, TimeSpan.FromSeconds(5), out iterations);
         }
 
         [TestMethod]
         public void Enscrypt_should_not_throw_if_salt_is_null() {
             var hasher = new PasswordHasher("password");
             int iterations;
-            hasher.EnScrypt(null, 1);
-            hasher.EnScrypt(null, TimeSpan.FromSeconds(5), out iterations);
+            hasher.Enscrypt(null, 1);
+            hasher.Enscrypt(null, TimeSpan.FromSeconds(5), out iterations);
         }
 
         [TestMethod]
         public void Enscrypt_should_throw_if_iterations_is_negative_or_zero() {
             var hasher = new PasswordHasher("password");
             var salt = new byte[] { };
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.EnScrypt(salt, -1),
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.Enscrypt(salt, -1),
                 "did not throw on negative value for iteration");
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.EnScrypt(salt, 0),
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.Enscrypt(salt, 0),
                 "did not throw on zero value for iteration");
         }
 
@@ -45,9 +45,9 @@ namespace SQRL.Security.Test {
             var hasher = new PasswordHasher("password");
             var salt = new byte[] { };
             int iterations;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.EnScrypt(salt, TimeSpan.FromSeconds(-1), out iterations),
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.Enscrypt(salt, TimeSpan.FromSeconds(-1), out iterations),
                 "did not throw on negative timespan for duration");
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.EnScrypt(salt, TimeSpan.FromSeconds(0), out iterations),
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hasher.Enscrypt(salt, TimeSpan.FromSeconds(0), out iterations),
                 "did not throw on zero timespan for duratrion");
         }
 
@@ -60,9 +60,48 @@ namespace SQRL.Security.Test {
             var hasher = new PasswordHasher(password);
             var salt = saltText == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(saltText).ToArray();
 
-            var key = hasher.EnScrypt(salt, iterations);
+            var key = hasher.Enscrypt(salt, iterations);
             var keyHex = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(key));
             Assert.AreEqual(expected, keyHex, ignoreCase: true);
         }
+
+        [DataTestMethod]
+        [DataRow("", "", 1)]
+        [DataRow("", "", 5)]
+        [DataRow("password", "", 5)]
+        [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 5)]
+        public void Enscrypt_should_return_a_number_of_iterations_that_produces_hash(string password, string saltText, int seconds) {
+            var hasher = new PasswordHasher(password);
+            int iterations;
+            var salt = saltText == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(saltText).ToArray();
+
+            var hash = hasher.Enscrypt(salt, TimeSpan.FromSeconds(seconds), out iterations);
+            var expected = hasher.Enscrypt(salt, iterations);
+
+            var hashText = CryptographicBuffer.EncodeToHexString(hash.AsBuffer());
+            var expectedText = CryptographicBuffer.EncodeToHexString(expected.AsBuffer());
+            Assert.AreEqual(expectedText, hashText);
+        }
+
+        [DataTestMethod]
+        [DataRow("", "", 1)]
+        [DataRow("", "", 5)]
+        [DataRow("password", "", 5)]
+        [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 5)]
+        public void Enscrypt_should_use_a_number_of_iterations_that_takes_the_specified_duration_to_hash(string password, string saltText, int seconds) {
+            var hasher = new PasswordHasher(password);
+            int iterations;
+            var salt = saltText == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(saltText).ToArray();
+
+            var hash = hasher.Enscrypt(salt, TimeSpan.FromSeconds(seconds), out iterations);
+
+            var expected = DateTime.Now.AddSeconds(seconds);
+            var result = hasher.Enscrypt(salt, iterations);
+            var actual = DateTime.Now;
+
+            Assert.IsTrue(expected <= actual, "hashing by iteration took less time than the specified duration");
+            Assert.IsTrue(expected.AddSeconds(1) >= actual, "hashing by iteration took excessively longer than the specified duration");
+        }
+
     }
 }

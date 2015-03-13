@@ -16,12 +16,12 @@ namespace SQRL.Security {
 
         //TODO: Add properties for Scrypt function parameters
 
-        public byte[] EnScrypt(byte[] salt, int iterations) {
+        public byte[] Enscrypt(byte[] salt, int iterations) {
             if (iterations <= 0) throw new ArgumentOutOfRangeException("iterations", "iterations must be greater than 0");
 
             var key = Password == "" ? new byte[] { } : 
                       CryptographicBuffer.ConvertStringToBinary(Password, BinaryStringEncoding.Utf8).ToArray();
-            //salt = salt ?? new byte[] { };
+            salt = salt ?? new byte[0];
 
             var result = salt = SCrypt.ComputeDerivedKey(key, salt, 512, 256, 1, null, 32);
             for (int i = 1; i < iterations; ++i) {
@@ -32,12 +32,23 @@ namespace SQRL.Security {
             return result;
         }
 
-        public byte[] EnScrypt(byte[] salt, TimeSpan duration, out int iterations) {
+        public byte[] Enscrypt(byte[] salt, TimeSpan duration, out int iterations) {
             if (duration <= TimeSpan.FromSeconds(0)) throw new ArgumentOutOfRangeException("duration", "duration must be greater than 0");
 
-            iterations = 0;
+            var key = Password == "" ? new byte[] { } :
+                      CryptographicBuffer.ConvertStringToBinary(Password, BinaryStringEncoding.Utf8).ToArray();
+            var endTime = DateTime.Now + duration;
+            salt = salt ?? new byte[0];
 
-            return null;
+            var result = salt = SCrypt.ComputeDerivedKey(key, salt, 512, 256, 1, null, 32);
+            iterations = 1;
+            while (DateTime.Now < endTime) {
+                iterations++;
+                salt = SCrypt.ComputeDerivedKey(key, salt, 512, 256, 1, null, 32);
+                result.Xor(salt);
+            }
+
+            return result;
         }
     }
 }
