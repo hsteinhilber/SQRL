@@ -98,9 +98,10 @@ namespace SQRL.Security.Test {
             var expected = DateTime.Now.AddSeconds(seconds);
             var result = hasher.Enscrypt(salt, iterations);
             var actual = DateTime.Now;
+            var difference = expected - actual;
 
-            Assert.IsTrue(expected <= actual, "hashing by iteration took less time than the specified duration");
-            Assert.IsTrue(expected.AddSeconds(1) >= actual, "hashing by iteration took excessively longer than the specified duration");
+            Assert.IsTrue(difference < TimeSpan.FromSeconds(1), "hashing by iteration took {0}s less time than the specified duration of {1}s", difference.TotalSeconds, seconds);
+            Assert.IsTrue(difference >= TimeSpan.FromSeconds(-1), "hashing by iteration took {0}s more time than the specified duration of {1}s", difference.TotalSeconds, seconds);
         }
 
     }
