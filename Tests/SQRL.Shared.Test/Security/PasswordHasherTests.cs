@@ -89,6 +89,7 @@ namespace SQRL.Security.Test {
         [DataRow("password", "", 5)]
         [DataRow("password", "0000000000000000000000000000000000000000000000000000000000000000", 5)]
         public void Enscrypt_should_use_a_number_of_iterations_that_takes_the_specified_duration_to_hash(string password, string saltText, int seconds) {
+            // This test may sometimes give a false positive and report the method as failing. This is due to the inaccurate way we are measuring the duration.
             var hasher = new PasswordHasher(password);
             int iterations;
             var salt = saltText == "" ? new byte[0] : CryptographicBuffer.DecodeFromHexString(saltText).ToArray();
