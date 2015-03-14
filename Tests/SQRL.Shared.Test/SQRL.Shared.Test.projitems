@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Security\EnhashTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\PasswordHasherTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Pbkdf2Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\XorTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqrlUriTests.cs" />
   </ItemGroup>
