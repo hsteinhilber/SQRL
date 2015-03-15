@@ -9,6 +9,7 @@
     <Import_RootNamespace>SQRL.Shared.Test</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Security\ClearTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\EnhashTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\PasswordHasherTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Pbkdf2Tests.cs" />
