@@ -39,8 +39,9 @@ namespace SQRL.Security {
         public static byte[] Pbkdf2(this string password, Action<byte[], byte[], byte[]> hash, byte[] salt, int iterations, int dkLen) {
             if (password == null) throw new ArgumentNullException("password");
             var pwdArray = Encoding.UTF8.GetBytes(password);
-            // TODO: pwdArray needs to be wiped before going out of scope
-            return pwdArray.Pbkdf2(hash, salt, iterations, dkLen);
+            var result = pwdArray.Pbkdf2(hash, salt, iterations, dkLen);
+            pwdArray.Clear();
+            return result;
         }
 
         public static byte[] Xor(this byte[] left, byte[] right) {
