@@ -23,7 +23,11 @@ namespace SQRL.Security {
                       CryptographicBuffer.ConvertStringToBinary(Password, BinaryStringEncoding.Utf8).ToArray();
             salt = salt ?? new byte[0];
 
-            return key.Pbkdf2((k, s) => SCrypt.ComputeDerivedKey(k, s, 512, 256, 1, null, 32), salt, iterations);
+            return key.Pbkdf2((r, k, s) => {
+                var result = SCrypt.ComputeDerivedKey(k, s, 512, 256, 1, null, 32);
+                result.CopyTo(r, 0);
+                result.Clear();
+            }, salt, iterations, 32);
         }
 
         public byte[] Enscrypt(byte[] salt, TimeSpan duration, out int iterations) {

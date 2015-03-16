@@ -12,42 +12,37 @@ namespace SQRL.Security {
             if (source == null) throw new ArgumentNullException("source");
             if (source.Length != 32) throw new ArgumentException("source", "source must be a 256 bit array");
 
-            return source.Pbkdf2((k, s) => Sha256Hash(s), source, 16);
+            return source.Pbkdf2((r, k, s) => Sha256Hash(r, s), source, 16, 32);
         }
 
-        private static HashAlgorithmProvider sha256hasher = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
-        private static byte[] Sha256Hash(byte[] salt) {
-            var buffer = salt.AsBuffer();
-            var hash =  sha256hasher.HashData(buffer);
-            var result = hash.ToArray();
-            buffer.Clear();
-            hash.Clear();
-            return result;
-        }
-
-        public static byte[] Pbkdf2(this byte[] password, Func<byte[], byte[], byte[]> hash, byte[] salt, int iterations) {
+        public static byte[] Pbkdf2(this byte[] password, Action<byte[], byte[], byte[]> hash, byte[] salt, int iterations, int dkLen) {
             if (password == null) throw new ArgumentNullException("password");
             if (iterations < 1) throw new ArgumentOutOfRangeException("iterations", iterations, "iterations must be a positive integer");
 
-            // TODO: key and cloned salt need to be wiped before going out of scope
-            // TODO: specify derived key length and pass buffer to hash method instead of taking return value
+            var result = new byte[dkLen];
+            var next = new byte[dkLen];
             var key = (byte[])password.Clone();
             salt = salt == null ? new byte[0] : (byte[])salt.Clone();
-            byte[] result = salt = hash(key, salt);
+
+            hash(next, key, salt);
+            next.CopyTo(result, 0);
             for (int i = 1; i < iterations; ++i) {
-                salt = hash(key, salt);
-                result.Xor(salt);
+                hash(next, key, next);
+                result.Xor(next);
             }
+
+            key.Clear(); salt.Clear(); next.Clear();
+
             return result;
         }
 
-        public static byte[] Pbkdf2(this string password, Func<byte[], byte[], byte[]> hash, byte[] salt, int iterations) {
+        public static byte[] Pbkdf2(this string password, Action<byte[], byte[], byte[]> hash, byte[] salt, int iterations, int dkLen) {
             if (password == null) throw new ArgumentNullException("password");
             var pwdArray = Encoding.UTF8.GetBytes(password);
             // TODO: pwdArray needs to be wiped before going out of scope
-            return pwdArray.Pbkdf2(hash, salt, iterations);
+            return pwdArray.Pbkdf2(hash, salt, iterations, dkLen);
         }
-        
+
         public static byte[] Xor(this byte[] left, byte[] right) {
             if (left == null) throw new ArgumentNullException("left");
             if (right == null) throw new ArgumentNullException("right");
@@ -72,6 +67,15 @@ namespace SQRL.Security {
                 for (int i = 0; i < source.Length; ++i)
                     stream.WriteByte(0);
             }
+        }
+
+        private static HashAlgorithmProvider sha256hasher = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
+
+        private static void Sha256Hash(byte[] result, byte[] salt) {
+            var buffer = salt.AsBuffer();
+            var hash = sha256hasher.HashData(buffer);
+            hash.CopyTo(result);
+            hash.Clear();
         }
     }
 }
