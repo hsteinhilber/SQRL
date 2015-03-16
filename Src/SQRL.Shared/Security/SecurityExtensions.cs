@@ -69,6 +69,14 @@ namespace SQRL.Security {
             }
         }
 
+        public static bool SecureEquals(this byte[] left, byte[] right) {
+            var result = left.Length ^ right.Length;
+            for (int i = 0; i < left.Length; ++i) {
+                result |= left[i] ^ right[i % right.Length];
+            }
+            return result == 0;
+        }
+
         private static HashAlgorithmProvider sha256hasher = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
 
         private static void Sha256Hash(byte[] result, byte[] salt) {
