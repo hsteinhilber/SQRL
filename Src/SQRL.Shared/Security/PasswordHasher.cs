@@ -15,7 +15,7 @@ namespace SQRL.Security {
         public string Password { get; private set; }
 
         //TODO: Add properties for Scrypt function parameters
-
+        //TODO: Add EnscryptAsync methods for async/await support
         public byte[] Enscrypt(byte[] salt, int iterations) {
             if (iterations <= 0) throw new ArgumentOutOfRangeException("iterations", "iterations must be greater than 0");
 
